@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-image: url(${BGImage});
     background-size: cover;
+    background-position: center;
     margin: 0;
     padding: 0;
     display: flex;
@@ -93,4 +94,21 @@ export const Wrapper = styled.div`
     margin-bottom: 10px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   }
+`;
+
+export const ProgressContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 15px 0 25px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+`;
+
+export const ProgressBar = styled.div`
+  height: 100%;
+  background: linear-gradient(to right, #00e676, #76ff03);
+  transition: width 0.4s ease-in-out;
 `;

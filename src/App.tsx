@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import QuestionCard from "./components/QuestionCard";
 import { fetchQuizQuestions } from "./API";
 import { QuestionState, Difficulty } from "./API";
-import { GlobalStyle, Wrapper } from "./App.styles";
+import {
+  GlobalStyle,
+  Wrapper,
+  ProgressContainer,
+  ProgressBar,
+} from "./App.styles";
 
 type AnswerObject = {
   question: string;
@@ -18,7 +23,7 @@ const App = () => {
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
-  const [score, setScore] = useState<number>(0); 
+  const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState(true);
 
   const startTrivia = async () => {
@@ -38,16 +43,11 @@ const App = () => {
 
   const checkAnswer = (selectedAnswer: string) => {
     if (!gameOver) {
-      // User Answer is now the 'selectedAnswer' argument
       const answer = selectedAnswer;
-
-      // Check answer against correct answer
       const correct = questions[number]?.correct_answer === answer;
 
-      //Add score if answer is correct
       if (correct) setScore((prev) => prev + 1);
 
-      // Save answer
       const answerObject = {
         question: questions[number]?.question || "",
         answer,
@@ -72,7 +72,8 @@ const App = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1> Test Your Knowledge </h1>
+        <h1>Test Your Knowledge</h1>
+
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <button className="start" onClick={startTrivia}>
             Start
@@ -82,10 +83,19 @@ const App = () => {
         {!gameOver ? (
           <p className="score">Score: {score}</p>
         ) : userAnswers.length === TOTAL_QUESTIONS ? (
-          <p className="score">Final Score: {score} / {TOTAL_QUESTIONS}</p>
+          <p className="score">
+            Final Score: {score} / {TOTAL_QUESTIONS}
+          </p>
         ) : null}
 
-        {loading && <p> Loading Questions ... </p>}
+        {loading && <p>Loading Questions ...</p>}
+
+        {/* ✅ Progress bar */}
+        {!loading && !gameOver && (
+          <ProgressContainer>
+            <ProgressBar style={{ width: `${((number + 1) / TOTAL_QUESTIONS) * 100}%` }} />
+          </ProgressContainer>
+        )}
 
         {!loading && !gameOver && questions.length > 0 && (
           <QuestionCard
@@ -97,6 +107,7 @@ const App = () => {
             callback={checkAnswer}
           />
         )}
+
         {!gameOver &&
           !loading &&
           userAnswers.length === number + 1 &&
