@@ -23,6 +23,7 @@ A fully functional quiz application built using **React**, **TypeScript**, and *
 | **HomePage** | ![HomePage](./images/Homepage.jpg) |
 | **Start Game** | ![Start Game](./images/question.jpg) |
 | **Completed Game** | ![Completed Game](./images/Final.jpg) |
+| **Score Breakdown** | ![Score Breakdown](./images/scorebreakdown.jpg) |
 
 ---
 
