@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import QuestionCard from "./components/QuestionCard";
 import { fetchQuizQuestions } from "./API";
+import ScoreBreakdown from "./components/ScoreBreakdown";
 import { QuestionState, Difficulty } from "./API";
 import {
   GlobalStyle,
@@ -79,6 +80,7 @@ const App = () => {
             Start
           </button>
         ) : null}
+        
 
         {!gameOver ? (
           <p className="score">Score: {score}</p>
@@ -116,6 +118,7 @@ const App = () => {
               Next Question
             </button>
           )}
+          <ScoreBreakdown answers={userAnswers} />
       </Wrapper>
     </>
   );
